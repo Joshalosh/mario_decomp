@@ -910,6 +910,21 @@ s32 act_ground_pound(struct MarioState *m) {
     u32 stepResult;
     f32 yOffset;
 
+    // Make it so that you can dive out of a ground pound like in 
+    // Mario Odyssey
+    if (m->input & INPUT_B_PRESSED) {
+        set_mario_action(m, ACT_DIVE, 0);
+        m->vel[1] = 30.0f; //[0] is X, [y] is Y, and [2] is Z
+        m->forwardVel = 40.0f; //this Variable affects the X and Z velocity
+
+        // faceAngle is a collection of 3 variables for Mario's rotation
+        // intendedYaw is basically where the analog stick is pointing
+        // relative to the camera
+        m->faceAngle[1] = m->intendedYaw;
+        
+        return FALSE;
+    }
+
     play_sound_if_no_flag(m, SOUND_ACTION_THROW, MARIO_ACTION_SOUND_PLAYED);
 
     if (m->actionState == 0) {
