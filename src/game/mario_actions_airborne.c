@@ -628,6 +628,20 @@ s32 act_long_jump(struct MarioState *m) {
         animation = MARIO_ANIM_SLOW_LONGJUMP;
     }
 
+    // Allow the dive to come out of a long jump
+    if (m->input & INPUT_B_PRESSED) {
+        set_mario_action(m, ACT_DIVE, 0);
+        m->vel[1] = 30.0f; //[0] is X, [y] is Y, and [2] is Z
+        m->forwardVel = 40.0f; //this Variable affects the X and Z velocity
+
+        // faceAngle is a collection of 3 variables for Mario's rotation
+        // intendedYaw is basically where the analog stick is pointing
+        // relative to the camera
+        m->faceAngle[1] = m->intendedYaw;
+        
+        return FALSE;
+    }
+
     play_mario_sound(m, SOUND_ACTION_TERRAIN_JUMP, SOUND_MARIO_YAHOO);
 
     if (m->floor->type == SURFACE_VERTICAL_WIND && m->actionState == 0) {
