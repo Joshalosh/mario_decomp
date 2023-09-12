@@ -85,6 +85,7 @@ Gfx *geo_intro_super_mario_64_logo(s32 callContext, struct GraphNode *node, UNUS
  * Geo callback to render TM and Copyright on the title screen
  */
 Gfx *geo_intro_tm_copyright(s32 callContext, struct GraphNode *node, UNUSED void *context) {
+#if 0
     struct GraphNode *graphNode = node;
     Gfx *dl = NULL;
     Gfx *dlIter = NULL;
@@ -115,6 +116,10 @@ Gfx *geo_intro_tm_copyright(s32 callContext, struct GraphNode *node, UNUSED void
         }
     }
     return dl;
+#else
+    return NULL;
+#endif
+
 }
 
 // intro screen background display lists for each of four 80x20 textures
